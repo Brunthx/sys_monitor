@@ -16,9 +16,14 @@ typedef struct{
 
 extern mslog_mem_pool_t g_mslog_mem_pool;
 
+#ifdef __cplusplus
+extern "C"{
+#endif
 void mslog_mem_pool_init(void);
 void *mslog_mem_pool_alloc(size_t size);
 void mslog_mem_pool_free(void *ptr);
 void mslog_mem_pool_deinit(void);
-
+#ifdef __cplusplus
+}
+#endif
 #endif//__MSLOG_MEM_POOL_H__

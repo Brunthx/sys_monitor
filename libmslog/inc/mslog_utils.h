@@ -5,10 +5,16 @@
 
 #include "common.h"
 
+#ifdef __cplusplus
+extern "C"{
+#endif
 //log rotate tool func interface
 int mslog_utils_get_file_size(const char *file_path);
 int mslog_utils_log_rotate(const char *base_path, int max_count);
 void mslog_utils_get_time_str(char *buf, int buf_len);
 int mslog_utils_is_file_exist(const char *file_path);
+#ifdef __cplusplus
+}
+#endif
 
 #endif//__MSLOG_UTILS_H__

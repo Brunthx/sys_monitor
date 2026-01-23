@@ -72,6 +72,9 @@ extern mslog_global_t g_mslog;
 #define MSLOG_LOG_BUF_SIZE				( 4096 )
 #define MSLOG_BATCH_BUF_SIZE			( 65536 )
 
+#ifdef __cplusplus
+extern "C"{
+#endif
 //log output interface
 int mslog_init_default(const char *log_path, mslog_level_t log_level, 
         size_t max_file_size, int max_file_count, mslog_flush_mode_t flush_mode);
@@ -79,6 +82,9 @@ void mslog_deinit(void);
 void mslog_log(mslog_level_t level, const char *tag, const char *file, int line, 
         const char *func, const char *fmt, ...);
 void mslog_keep_alive(void);
+#ifdef __cplusplus
+}
+#endif
 //log marco define
 #define MSLOG_DEBUG(tag, fmt, ...)\
 	mslog_log(MSLOG_DEBUG, tag, __FILE__, __LINE__, __func__, fmt, ##__VA_ARGS__)
