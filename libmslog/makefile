@@ -1,6 +1,6 @@
 # libmslog/Makefile
-CC = gcc
-CFLAGS = -Wall -O2 -I./inc -pthread
+CC 		= gcc
+CFLAGS 	= -g -Wall -O2 -std=c99 -I./inc -pthread
 SRC_DIR = ./src
 INC_DIR = ./inc
 LIB_DIR = ./lib
