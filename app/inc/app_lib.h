@@ -5,5 +5,6 @@
 #include "common_head.h"
 #include "sys_monitor.h"
 #include "args_parse.h"
+#include "cpu_monitor.h"
 
 #endif//__APP_LIB_H__
