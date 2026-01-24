@@ -15,7 +15,7 @@ s16 collect_mem_data(MonitorData *data){
     FILE *fp = fopen("/proc/meminfo", "r");
     if ( !fp )
     {
-        MSLOG_ERROR(MSLOG_ERROR,"Failed to open /proc/meminfo: %m");
+        MSLOG_ERROR(MSLOG_ERROR, "Failed to open /proc/meminfo: %m");
         return -1;
     }
     s8 line[256];

@@ -95,7 +95,7 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 config->interval = atoi(optarg);
                 if ( config->interval < 1 ) 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR,"Collection interval cannot be less than 1 second");
+                    MSLOG_ERROR(MSLOG_ERROR, "Collection interval cannot be less than 1 second");
                     return -1;
                 }
                 break;
@@ -103,7 +103,7 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 config->duration = atoi(optarg);
                 if ( config->duration < 1 ) 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR,"Monitor duration cannot be less than 1 second");
+                    MSLOG_ERROR(MSLOG_ERROR, "Monitor duration cannot be less than 1 second");
                     return -1;
                 }
                 break;
@@ -130,7 +130,7 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 }
                 else 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR,"Invalid log level: %s, support debug/info/warn/error", optarg);
+                    MSLOG_ERROR(MSLOG_ERROR, "Invalid log level: %s, support debug/info/warn/error", optarg);
                     return -1;
                 }
                 break;
@@ -141,7 +141,7 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 print_help();
                 exit(0);
             default: // Invalid argument
-                MSLOG_ERROR(MSLOG_ERROR,"Invalid argument: %c", opt);
+                MSLOG_ERROR(MSLOG_ERROR, "Invalid argument: %c", opt);
                 print_help();
                 return -1;
         }

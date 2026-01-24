@@ -15,7 +15,7 @@ s16 collect_load_data(MonitorData *data){
     FILE *fp = fopen("/proc/loadavg", "r");
     if ( !fp )
     {
-        MSLOG_ERROR(MSLOG_ERROR,"Failed to open /proc/loadavg: %m");
+        MSLOG_ERROR(MSLOG_ERROR, "Failed to open /proc/loadavg: %m");
         return -1;
     }
     

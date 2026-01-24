@@ -14,7 +14,7 @@ s16 read_cpu_raw_data(u64 *total, u64 *idle){
     FILE *fp = fopen("/proc/stat","r");
     if ( !fp )
     {
-        MSLOG_ERROR(MSLOG_ERROR,"Failed to open /proc/stat: %m");
+        MSLOG_ERROR(MSLOG_ERROR, "Failed to open /proc/stat: %m");
         return -1;
     }
     s8 line[256];

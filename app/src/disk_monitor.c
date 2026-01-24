@@ -14,7 +14,7 @@ static s16 read_disk_raw_data(const s8 *disk_dev, DiskRawData * data){
     FILE *fp = fopen("/proc/diskstats","r");
     if ( !fp )
     {
-        MSLOG_ERROR(MSLOG_ERROR,"Failed to open /proc/diskstats: %m");
+        MSLOG_ERROR(MSLOG_ERROR, "Failed to open /proc/diskstats: %m");
         return -1;
     }
     
