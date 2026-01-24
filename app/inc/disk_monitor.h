@@ -12,7 +12,4 @@ typedef struct {
     u64 write_ops;     // Total write operations
 } DiskRawData;
 
-#define SECTOR_SIZE         ( 512 )
-#define MB_CONVERT          ( 1024 * 1024 )
-
 #endif//__DISK_MONITOR_H__

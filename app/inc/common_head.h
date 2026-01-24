@@ -11,6 +11,9 @@
 #include <stdint.h>
 #include <signal.h>
 #include <getopt.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <ctype.h>
 
 #include "../../libmslog/inc/mslog.h"
 #include "../../libmslog/inc/mslog_thread.h"
@@ -29,5 +32,10 @@ typedef enum{
     FALSE = 0,
     TRUE
 }Bool;
+
+//marco define
+#define SECTOR_SIZE         ( 512 )
+#define MB_UNIT             ( 1024 )
+#define MB_CONVERT          ( 1024 * 1024 )
 
 #endif//__COMMON_HEAD_H__
