@@ -8,5 +8,6 @@
 #include "cpu_monitor.h"
 #include "mem_monitor.h"
 #include "disk_monitor.h"
+#include "load_monitor.h"
 
 #endif//__APP_LIB_H__
