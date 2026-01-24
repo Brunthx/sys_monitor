@@ -6,7 +6,7 @@ extern "C"{
 void init_default_config(MonitorConfig *config);
 // Parse command line arguments and update monitor configuration
 // Return 0 on success, -1 on invalid arguments
-int parse_args(int argc, char *argv[], MonitorConfig *config);
+s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config);
 #ifdef __cplusplus
 }
 #endif
@@ -51,14 +51,14 @@ void init_default_config(MonitorConfig *config) {
     // Default log output: console (empty path)
     config->log_path[0] = '\0';
     // Default running state: enable
-    config->is_running = 1;
+    config->is_running = TRUE;
 }
 
 // Parse command line arguments and update monitor configuration
-int parse_args(int argc, char *argv[], MonitorConfig *config) {
-    int opt;
+s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
+    s16 opt;
     // Short command line options definition
-    const char *short_opts = "cmdl:i:t:p:l:f:h";
+    const s8 *short_opts = "cmdl:i:t:p:l:f:h";
     // Long command line options definition (for better usability)
     struct option long_opts[] = {
         {"cpu", no_argument, NULL, 'c'},
