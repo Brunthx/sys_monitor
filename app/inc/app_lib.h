@@ -10,5 +10,6 @@
 #include "disk_monitor.h"
 #include "load_monitor.h"
 #include "proc_monitor.h"
+#include "utils.h"
 
 #endif//__APP_LIB_H__
