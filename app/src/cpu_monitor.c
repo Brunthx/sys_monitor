@@ -1,15 +1,5 @@
 #include "../inc/app_lib.h"
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-// Collect CPU usage data and update to MonitorData
-// Return 0 on success, -1 on failure
-s16 collect_cpu_data(MonitorData *data);
-#ifdef __cplusplus
-}
-#endif
-
 s16 read_cpu_raw_data(u64 *total, u64 *idle){
     FILE *fp = fopen("/proc/stat","r");
     if ( !fp )

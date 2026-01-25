@@ -34,8 +34,14 @@ typedef enum{
 }Bool;
 
 //marco define
-#define SECTOR_SIZE         ( 512 )
-#define MB_UNIT             ( 1024 )
-#define MB_CONVERT          ( 1024 * 1024 )
+#define SECTOR_SIZE                                 ( 512 )
+#define MB_UNIT                                     ( 1024 )
+#define MB_CONVERT                                  ( 1024 * 1024 )
+#define MSLOG_DEFAULT_MAX_FILE_SIZE                 ( 1024 * 1024 * 200 )
+#define MSLOG_DEFAULT_MAX_FILE_COUNT                ( 5 )
+#define MSLOG_DEFAULT_LOG_PATH                      ( "./sys_monitor.log" )
+
+//global tag
+#define SYS_MON_TAG "SYS_MONITOR"
 
 #endif//__COMMON_HEAD_H__

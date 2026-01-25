@@ -1,16 +1,5 @@
 #include "../inc/app_lib.h"
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-// Collect memory usage data from /proc/meminfo
-// Update data to MonitorData structure
-// Return 0 on success, -1 on failure
-s16 collect_mem_data(MonitorData *data);
-#ifdef __cplusplus
-}
-#endif
-
 s16 collect_mem_data(MonitorData *data){
     FILE *fp = fopen("/proc/meminfo", "r");
     if ( !fp )

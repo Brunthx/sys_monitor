@@ -3,13 +3,6 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-// Collect resource usage data of specified process
-// Parameters:
-//   proc_name: target process name (e.g., log_agent)
-//   data: monitor data structure to store PID/CPU/MEM usage
-// Return 0 on success, -1 on failure (process not found)
-s16 collect_proc_data(const s8 *proc_name, MonitorData *data);
-
 static s16 get_pid_by_name(const s8 *proc_name, s16 *pid){
     DIR *dir;
     struct dirent *entry;

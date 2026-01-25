@@ -5,6 +5,11 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
+extern MonitorConfig *config;
+void init_default_config(MonitorConfig *config);
+// Parse command line arguments and update monitor configuration
+// Return 0 on success, -1 on invalid arguments
+s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config);
 void print_help();
 #ifdef __cplusplus
 }

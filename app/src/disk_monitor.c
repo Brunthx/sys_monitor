@@ -3,13 +3,6 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-// Collect disk IO data for specified device
-// Parameters:
-//   disk_dev: target disk device name (e.g., sda)
-//   data: monitor data structure to store result
-// Return 0 on success, -1 on failure
-s16 collect_disk_data(const s8 *disk_dev, MonitorData *data);
-
 static s16 read_disk_raw_data(const s8 *disk_dev, DiskRawData * data){
     FILE *fp = fopen("/proc/diskstats","r");
     if ( !fp )

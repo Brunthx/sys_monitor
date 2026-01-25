@@ -12,4 +12,17 @@ typedef struct {
     u64 write_ops;     // Total write operations
 } DiskRawData;
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+// Collect disk IO data for specified device
+// Parameters:
+//   disk_dev: target disk device name (e.g., sda)
+//   data: monitor data structure to store result
+// Return 0 on success, -1 on failure
+s16 collect_disk_data(const s8 *disk_dev, MonitorData *data);
+#ifdef __cplusplus
+}
+#endif
+
 #endif//__DISK_MONITOR_H__

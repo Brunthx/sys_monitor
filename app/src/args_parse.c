@@ -1,16 +1,5 @@
 #include "../inc/app_lib.h"
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-void init_default_config(MonitorConfig *config);
-// Parse command line arguments and update monitor configuration
-// Return 0 on success, -1 on invalid arguments
-s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config);
-#ifdef __cplusplus
-}
-#endif
-
 // Print help information for command line arguments
 void print_help() {
     printf("==================== sys_monitor Usage Help ====================\n");
@@ -31,14 +20,20 @@ void print_help() {
 
 // Initialize monitor configuration with default values
 void init_default_config(MonitorConfig *config) {
+    if ( config == NULL )
+    {
+        MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, "init_default_config failed: config is NULL");
+        return;
+    }
+
     memset(config, 0, sizeof(MonitorConfig));
     // Default enable CPU and memory monitoring
-    config->monitor_cpu = 1;
-    config->monitor_mem = 1;
+    config->monitor_cpu = TRUE;
+    config->monitor_mem = TRUE;
     // Default disable disk, process monitoring
-    config->monitor_disk = 0;
-    config->monitor_load = 1;
-    config->monitor_proc = 0;
+    config->monitor_disk = FALSE;
+    config->monitor_load = TRUE;
+    config->monitor_proc = FALSE;
     // Empty default values for disk device and process name
     config->disk_dev[0] = '\0';
     config->proc_name[0] = '\0';
@@ -52,13 +47,22 @@ void init_default_config(MonitorConfig *config) {
     config->log_path[0] = '\0';
     // Default running state: enable
     config->is_running = TRUE;
+
+    MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, "default config init success");
 }
 
 // Parse command line arguments and update monitor configuration
 s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
+    if ( argc < 1 || argv == NULL || config == NULL )
+    {
+        MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, "parse_args failed: invalid input param");
+        return -1;
+    }
+    
+
     s16 opt;
     // Short command line options definition
-    const s8 *short_opts = "cmdl:i:t:p:l:f:h";
+    const s8 *short_opts = "cmdl:i:t:p:L:f:h";
     // Long command line options definition (for better usability)
     struct option long_opts[] = {
         {"cpu", no_argument, NULL, 'c'},
@@ -79,23 +83,27 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
         switch (opt) 
         {
             case 'c': 
-                config->monitor_cpu = 1; 
+                config->monitor_cpu = TRUE; 
                 break;
             case 'm': 
-                config->monitor_mem = 1; 
+                config->monitor_mem = TRUE; 
                 break;
             case 'd': // Set disk device for IO monitoring
-                config->monitor_disk = 1;
-                snprintf(config->disk_dev, sizeof(config->disk_dev), "%s", optarg);
+                config->monitor_disk = TRUE;
+                snprintf(config->disk_dev, sizeof(config->disk_dev) - 1, "%s", optarg);
+                config->disk_dev[sizeof(config->disk_dev) - 1] = '\0';
+                MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                    "disk monitor enabled, dev: %s", config->disk_dev);
                 break;
             case 'l': 
-                config->monitor_load = 1; 
+                config->monitor_load = TRUE; 
                 break;
             case 'i': // Set collection interval (seconds)
                 config->interval = atoi(optarg);
                 if ( config->interval < 1 ) 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR, "Collection interval cannot be less than 1 second");
+                    MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                        "invalid interval: %d (must >=1)", config->interval);
                     return -1;
                 }
                 break;
@@ -103,13 +111,17 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 config->duration = atoi(optarg);
                 if ( config->duration < 1 ) 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR, "Monitor duration cannot be less than 1 second");
+                    MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                        "invalid duration: %d (must >=1 or -1)", config->duration);
                     return -1;
                 }
                 break;
             case 'p': // Set target process name to monitor
-                config->monitor_proc = 1;
-                snprintf(config->proc_name, sizeof(config->proc_name), "%s", optarg);
+                config->monitor_proc = TRUE;
+                snprintf(config->proc_name, sizeof(config->proc_name) - 1, "%s", optarg);
+                config->proc_name[sizeof(config->proc_name) - 1] = '\0';
+                MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                    "process monitor enabled, name: %s", config->proc_name);
                 break;
             case 'L': // Set log level (debug/info/warn/error)
                 if ( !strcmp(optarg, "debug") ) 
@@ -128,23 +140,44 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
                 {
                     config->log_level = LOG_ERROR;
                 }
+                else if ( !strcmp(optarg, "fatal") )
+                {
+                    config->log_level = LOG_FATAL;
+                }
                 else 
                 {
-                    MSLOG_ERROR(MSLOG_ERROR, "Invalid log level: %s, support debug/info/warn/error", optarg);
+                    MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                        "invalid log level: %s (support debug/info/warn/error/fatal)", optarg);
                     return -1;
                 }
+                MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                    "log level set to: %s", optarg);
                 break;
             case 'f': // Set log file output path
-                snprintf(config->log_path, sizeof(config->log_path), "%s", optarg);
+                snprintf(config->log_path, sizeof(config->log_path) - 1, "%s", optarg);
+                config->log_path[sizeof(config->log_path) - 1] = '\0';
+                MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+                    "log file path set to: %s", config->log_path);
                 break;
             case 'h': // Print help information and exit
                 print_help();
                 exit(0);
             default: // Invalid argument
-                MSLOG_ERROR(MSLOG_ERROR, "Invalid argument: %c", opt);
+                MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, "invalid argument: %c", opt);
                 print_help();
                 return -1;
         }
     }
+
+    if ( config->interval < 1 )
+    {
+        MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+            "interval must be >=1 (current: %d)", config->interval);
+        return -1;
+    }
+    
+    MSLOG_INFO(SYS_MON_TAG, __FILE__, __LINE__, __func__, 
+        "args parse success | interval: %ds | duration: %ds | log-level: %d | log-path: %s", 
+        config->interval, config->duration, config->log_level, config->log_path);
     return 0;
 }

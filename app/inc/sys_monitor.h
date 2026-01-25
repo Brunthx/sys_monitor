@@ -7,15 +7,16 @@ typedef enum{
     LOG_DEBUG = 0,
     LOG_INFO,
     LOG_WARN,
-    LOG_ERROR
+    LOG_ERROR,
+    LOG_FATAL
 }LogLevel;
 
 typedef struct {
-    s16 monitor_cpu;        // Whether to monitor CPU: 1=enable, 0=disable
-    s16 monitor_mem;        // Whether to monitor memory: 1=enable, 0=disable
-    s16 monitor_disk;       // Whether to monitor disk IO: 1=enable, 0=disable
-    s16 monitor_load;       // Whether to monitor system load: 1=enable, 0=disable
-    s16 monitor_proc;       // Whether to monitor specified process: 1=enable, 0=disable
+    Bool monitor_cpu;        // Whether to monitor CPU: 1=enable, 0=disable
+    Bool monitor_mem;        // Whether to monitor memory: 1=enable, 0=disable
+    Bool monitor_disk;       // Whether to monitor disk IO: 1=enable, 0=disable
+    Bool monitor_load;       // Whether to monitor system load: 1=enable, 0=disable
+    Bool monitor_proc;       // Whether to monitor specified process: 1=enable, 0=disable
     s8 disk_dev[32];      // Disk device name (e.g., sda, sdb)
     s8 proc_name[64];     // Target process name to monitor (e.g., log_agent)
     s16 interval;           // Data collection interval (seconds, minimum 1)
