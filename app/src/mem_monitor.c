@@ -1,6 +1,6 @@
 #include "../inc/app_lib.h"
 
-s16 collect_mem_data(MonitorData *data){
+s32 collect_mem_data(MonitorData *data){
     FILE *fp = fopen("/proc/meminfo", "r");
     if ( !fp )
     {
@@ -8,7 +8,7 @@ s16 collect_mem_data(MonitorData *data){
         return -1;
     }
     s8 line[256];
-    u32 mem_total = 0, mem_free = 0, buffers = 0, cached = 0, s_reclaimable = 0;
+    u64 mem_total = 0, mem_free = 0, buffers = 0, cached = 0, s_reclaimable = 0;
     while ( fgets(line, sizeof(line), fp) )
     {
         if ( !strncmp(line, "MemTotal:", 8) ) 

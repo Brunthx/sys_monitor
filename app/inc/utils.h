@@ -10,12 +10,12 @@ extern MonitorConfig *config;
 // Parameters:
 //   timestamp: buffer to store timestamp string
 //   len: buffer length (must be >= 20)
-void generate_timestamp(s8 *timestamp, s16 len);
+void generate_timestamp(s8 *timestamp, s32 len);
 
 // Clear console screen (use ANSI escape sequence)
 void clear_screen();
 
-s16 init_mslog(MonitorConfig *config);
+s32 init_mslog(MonitorConfig *config);
 #ifdef __cplusplus
 }
 #endif

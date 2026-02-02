@@ -19,8 +19,8 @@ typedef struct {
     Bool monitor_proc;       // Whether to monitor specified process: 1=enable, 0=disable
     s8 disk_dev[32];      // Disk device name (e.g., sda, sdb)
     s8 proc_name[64];     // Target process name to monitor (e.g., log_agent)
-    s16 interval;           // Data collection interval (seconds, minimum 1)
-    s16 duration;           // Monitor running duration (seconds, -1=infinite running)
+    s32 interval;           // Data collection interval (seconds, minimum 1)
+    s32 duration;           // Monitor running duration (seconds, -1=infinite running)
     LogLevel log_level;     // Log output level (control log detail)
     s8 log_path[256];
     Bool is_running;         // Monitor running flag (0=stop, 1=running) for graceful exit
@@ -36,7 +36,7 @@ typedef struct {
     float load1;            // 1-minute system load average
     float load5;            // 5-minute system load average
     float load15;           // 15-minute system load average
-    s16 proc_pid;           // Target process PID (-1=process not found)
+    s32 proc_pid;           // Target process PID (-1=process not found)
     float proc_cpu;         // Target process CPU usage (%)
     float proc_mem;         // Target process memory usage (%)
     s8 timestamp[32];     // Formatted timestamp: YYYY-MM-DD HH:MM:SS

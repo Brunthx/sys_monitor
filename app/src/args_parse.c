@@ -52,7 +52,7 @@ void init_default_config(MonitorConfig *config) {
 }
 
 // Parse command line arguments and update monitor configuration
-s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
+s32 parse_args(s32 argc, s8 *argv[], MonitorConfig *config) {
     if ( argc < 1 || argv == NULL || config == NULL )
     {
         MSLOG_ERROR(SYS_MON_TAG, __FILE__, __LINE__, __func__, "parse_args failed: invalid input param");
@@ -60,7 +60,7 @@ s16 parse_args(s16 argc, s8 *argv[], MonitorConfig *config) {
     }
     
 
-    s16 opt;
+    s32 opt;
     // Short command line options definition
     const s8 *short_opts = "cmdl:i:t:p:L:f:h";
     // Long command line options definition (for better usability)

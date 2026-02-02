@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-static s16 read_disk_raw_data(const s8 *disk_dev, DiskRawData * data){
+static s32 read_disk_raw_data(const s8 *disk_dev, DiskRawData * data){
     FILE *fp = fopen("/proc/diskstats","r");
     if ( !fp )
     {
@@ -41,7 +41,7 @@ static s16 read_disk_raw_data(const s8 *disk_dev, DiskRawData * data){
 }
 #endif
 
-s16 collect_disk_data(const s8 *disk_dev, MonitorData *data){
+s32 collect_disk_data(const s8 *disk_dev, MonitorData *data){
     static DiskRawData prev_data = {0};
     DiskRawData curr_data = {0};
     static Bool first_collect = TRUE;

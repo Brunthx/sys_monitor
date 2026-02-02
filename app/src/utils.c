@@ -1,6 +1,6 @@
 #include "../inc/app_lib.h"
 
-void generate_timestamp(s8 *timestamp, s16 len){
+void generate_timestamp(s8 *timestamp, s32 len){
     time_t now = time(NULL);
     struct tm *tm = localtime(&now);
     strftime(timestamp, len, "%Y-%m-%d %H:%M:%S", tm);
@@ -11,7 +11,7 @@ void clear_screen(){
     fflush(stdout);
 }
 
-s16 init_mslog(MonitorConfig *config){
+s32 init_mslog(MonitorConfig *config){
     if ( config == NULL )
     {
         fprintf(stderr, "[sys_monitor] init mslog failed: config is NULL\n");
@@ -44,7 +44,7 @@ s16 init_mslog(MonitorConfig *config){
         break;
     }
     
-    s16 ret = mslog_init_default(
+    s32 ret = mslog_init_default(
         log_path, 
         log_level, 
         MSLOG_DEFAULT_MAX_FILE_SIZE, 

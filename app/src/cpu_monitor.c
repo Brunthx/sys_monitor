@@ -1,6 +1,6 @@
 #include "../inc/app_lib.h"
 
-s16 read_cpu_raw_data(u64 *total, u64 *idle){
+s32 read_cpu_raw_data(u64 *total, u64 *idle){
     FILE *fp = fopen("/proc/stat","r");
     if ( !fp )
     {
@@ -20,7 +20,7 @@ s16 read_cpu_raw_data(u64 *total, u64 *idle){
     return 0;
 }
 
-s16 collect_cpu_data(MonitorData *data){
+s32 collect_cpu_data(MonitorData *data){
     static u64 prev_total = 0, prev_idle = 0;
     u64 curr_total, curr_idle;
 

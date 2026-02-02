@@ -11,7 +11,7 @@ extern MonitorData *data;
 //   proc_name: target process name (e.g., log_agent)
 //   data: monitor data structure to store PID/CPU/MEM usage
 // Return 0 on success, -1 on failure (process not found)
-s16 collect_proc_data(const s8 *proc_name, MonitorData *data);
+s32 collect_proc_data(const s8 *proc_name, MonitorData *data);
 #ifdef __cplusplus
 }
 #endif

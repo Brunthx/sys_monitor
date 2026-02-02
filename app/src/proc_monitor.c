@@ -3,7 +3,7 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-static s16 get_pid_by_name(const s8 *proc_name, s16 *pid){
+static s32 get_pid_by_name(const s8 *proc_name, s32 *pid){
     DIR *dir;
     struct dirent *entry;
     s8 path[256], cmdline[256];
@@ -49,13 +49,13 @@ static s16 get_pid_by_name(const s8 *proc_name, s16 *pid){
     return -1;
 }
 
-static s16 read_proc_cpu(int pid, float *cpu_usage){
+static s32 read_proc_cpu(int pid, float *cpu_usage){
     static u64 prev_utime = 0, prev_stime =0, prev_total = 0;
     s8 path[256];
     FILE *fp;
     s8 line[256];
     u64 utime, stime, total_cpu;
-    s16 i;
+    s32 i;
 
     snprintf(path, sizeof(path), "/proc/%d/stat", pid);
     fp = fopen(path, "r");
@@ -126,7 +126,7 @@ static s16 read_proc_cpu(int pid, float *cpu_usage){
     return 0;
 }
 
-static s16 read_proc_mem(s16 pid, float *mem_usage){
+static s32 read_proc_mem(s32 pid, float *mem_usage){
     s8 path[256];
     FILE *fp;
     s8 line[256];
@@ -173,8 +173,8 @@ static s16 read_proc_mem(s16 pid, float *mem_usage){
 }
 #endif
 
-s16 collect_proc_data(const s8 *proc_name, MonitorData *data){
-    s16 pid;
+s32 collect_proc_data(const s8 *proc_name, MonitorData *data){
+    s32 pid;
 
     if ( get_pid_by_name(proc_name, &pid) != 0 )
     {

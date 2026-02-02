@@ -1,6 +1,6 @@
 #include "../inc/app_lib.h"
 
-s16 collect_load_data(MonitorData *data){
+s32 collect_load_data(MonitorData *data){
     FILE *fp = fopen("/proc/loadavg", "r");
     if ( !fp )
     {
